@@ -37,8 +37,9 @@ jobs:
       
       - name: Install Poetry
         run: |
-          curl -sSL $env:POETRY_URL | python - --version $env:POETRY_VERSION
-          echo "$env:USERPROFILE/.local/bin" >> $env:PATH
+          $poetryScript = (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content
+          $poetryScript | py - --version $env:POETRY_VERSION
+          [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
       
       - name: Install Dependencies
         run: |
