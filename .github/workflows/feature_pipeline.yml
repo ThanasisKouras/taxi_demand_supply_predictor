@@ -42,8 +42,8 @@ jobs:
       
       - name: Install Dependencies
         run: |
-          curl -sSL $env:POETRY_URL | python - --version $env:POETRY_VERSION
-          $env:PATH += ";$env:USERPROFILE\.local\bin"
+          (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
+          $env:PATH = $env:PATH + ";$env:USERPROFILE\.local\bin"
           
       - name: Run feature generation script
         env: 
