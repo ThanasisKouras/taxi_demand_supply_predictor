@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Tuple
 
 import pandas as pd
@@ -7,9 +7,16 @@ def train_test_split(
     df: pd.DataFrame,
     cutoff_date: datetime,
     target_column_name: str,
-    ) -> Tuple[pd.DataFrame, pd.Series, pd.DataFrame, pd.Series]:
+) -> Tuple[pd.DataFrame, pd.Series, pd.DataFrame, pd.Series]:
     """
     """
+    # Ensure cutoff_date is timezone-aware (UTC)
+    cutoff_date = cutoff_date.replace(tzinfo=timezone.utc)
+
+    ## Convert pickup_hour to pandas datetime with timezone##
+    df['pickup_hour'] = pd.to_datetime(df['pickup_hour'], utc=True)
+
+    # Assuming the pickup_hour column is already timezone-aware
     train_data = df[df.pickup_hour < cutoff_date].reset_index(drop=True)
     test_data = df[df.pickup_hour >= cutoff_date].reset_index(drop=True)
 

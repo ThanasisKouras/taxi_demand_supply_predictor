@@ -282,4 +282,3 @@ def get_cutoff_indices_features_and_target(
             subseq_last_idx += step_size
 
         return indices
-

@@ -8,7 +8,7 @@ on:
 
 env:
   PYTHON_VERSION: 3.9
-  POETRY_VERSION: 1.6.1
+  POETRY_VERSION: 1.7.1
   POETRY_URL: https://install.python-poetry.org
 
 jobs:
