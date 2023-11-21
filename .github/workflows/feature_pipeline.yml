@@ -41,7 +41,9 @@ jobs:
           echo "$env:USERPROFILE/.local/bin" >> $env:PATH
       
       - name: Install Dependencies
-        run: poetry install
+        run: |
+          curl -sSL $env:POETRY_URL | python - --version $env:POETRY_VERSION
+          $env:PATH += ";$env:USERPROFILE\.local\bin"
           
       - name: Run feature generation script
         env: 
