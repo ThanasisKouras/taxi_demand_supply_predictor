@@ -36,8 +36,7 @@ jobs:
       
       - name: Install Poetry
         run: |
-          $poetryScript = (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content
-          $poetryScript | py - --version $env:POETRY_VERSION
+          (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
           [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
       
       - name: Run feature generation script
