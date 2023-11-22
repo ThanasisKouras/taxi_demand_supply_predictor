@@ -41,8 +41,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
-            $poetryPath = Join-Path $env:USERPROFILE\.local\bin "poetry"
-            & $poetryPath install
+            $env:PATH += ";$env:USERPROFILE\.local\bin"
+            poetry install
 
       - name: Run feature generation script
         env: 
