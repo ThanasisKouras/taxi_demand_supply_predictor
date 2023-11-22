@@ -38,7 +38,14 @@ jobs:
         run: |
           (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
           [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
-      
+
+      - name: Debug Output
+        run: |
+          echo "Checking Poetry installation:"
+          where.exe poetry
+          echo "Checking PATH variable:"
+          echo $env:PATH
+          
       - name: Run feature generation script
         env: 
           HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
