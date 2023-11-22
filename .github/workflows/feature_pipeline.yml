@@ -2,8 +2,7 @@ name: feature-pipeline
 
 on:
   schedule:
-  - cron: '0 * * * *'
-
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 env:
@@ -41,15 +40,14 @@ jobs:
           $poetryScript | py - --version $env:POETRY_VERSION
           [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
       
-      - name: Install Dependencies
-        run: |
-          (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
-          $env:PATH = $env:PATH + ";$env:USERPROFILE\.local\bin"
-          
       - name: Run feature generation script
         env: 
           HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: make features
+        run: poetry run python scripts/feature_pipeline.py
 
-  
+      - name: Run make features
+        env: 
+          HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+        run: make features
