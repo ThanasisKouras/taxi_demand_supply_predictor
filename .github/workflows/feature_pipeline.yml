@@ -36,7 +36,10 @@ jobs:
       
       - name: Install Poetry
         run: |
-          (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
+          $poetryScript = (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content
+          Write-Host "Poetry Installation Script:"
+          Write-Host $poetryScript
+          $poetryScript | py - --version $env:POETRY_VERSION
           [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
 
       - name: Debug Output
