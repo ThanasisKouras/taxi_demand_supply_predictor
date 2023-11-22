@@ -2,7 +2,7 @@
 
 # downloads Poetry and installs all dependencies from pyproject.toml
 init:
-	curl -sSL https://install.python-poetry.org | python3 -
+	(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
 	poetry install
 
 # generates new batch of features and stores them in the feature store
