@@ -40,7 +40,9 @@ jobs:
           [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\AppData\Roaming\Python\Scripts;$env:PATH", [System.EnvironmentVariableTarget]::Process)
 
       - name: Install Dependencies
-        run: poetry install
+        run: |
+          $env:PATH += ";$env:USERPROFILE\.poetry\bin"
+          poetry install
 
       - name: Run feature generation script
         env: 
