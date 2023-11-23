@@ -36,24 +36,18 @@ jobs:
 
       - name: Install Poetry
         run: |
-          Write-Host "Current PATH: $env:PATH"
-          
           # Check if Poetry is already installed
-          if (-not (Test-Path $env:USERPROFILE\.local\bin\poetry)) {
+          if (-not (Test-Path $env:USERPROFILE\AppData\Roaming\Python\Scripts\poetry.exe)) {
               # Install Poetry
-              $poetryScript = (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content
-              $poetryScript | py - --version $env:POETRY_VERSION
+              Invoke-Expression (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content
           }
-          
-          # Add Poetry's bin directory to PATH
+
+      - name: Add Poetry to PATH
+        run: |
           [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\AppData\Roaming\Python\Scripts;$env:PATH", [System.EnvironmentVariableTarget]::Process)
-          
-          Write-Host "Updated PATH: $env:PATH"
 
       - name: Install Dependencies
-        run: |
-          $env:PATH += ";$env:USERPROFILE\.local\bin"
-          poetry install
+        run: poetry install
 
       - name: Run feature generation script
         env: 
