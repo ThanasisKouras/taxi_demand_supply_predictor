@@ -36,14 +36,7 @@ jobs:
 
       - name: Install Poetry
         run: |
-          # Check if Poetry is already installed
-          if (-not (Test-Path "$env:USERPROFILE\AppData\Roaming\Python\Scripts\poetry.exe")) {
-              # Install Poetry
-              Invoke-Expression ((Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content)
-          }
-          else {
-              Write-Host "Poetry is already installed"
-          }
+          Invoke-Expression ((Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content)
 
       - name: Add Poetry to PATH
         run: |
