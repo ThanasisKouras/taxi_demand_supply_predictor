@@ -40,8 +40,9 @@ jobs:
       - name: Install Poetry
         run: |
           Write-Host "Current PATH: $env:PATH"
-          (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
-          [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
+          $poetryScript = (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content
+          $poetryScript | py - --version $env:POETRY_VERSION
+          [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$env:PATH", [System.EnvironmentVariableTarget]::Process)
           Write-Host "Updated PATH: $env:PATH"
 
       - name: Debug PATH after installing Poetry
@@ -53,7 +54,7 @@ jobs:
       - name: Install Dependencies
         run: |
           Write-Host "Current PATH: $env:PATH"
-          $env:PATH += ";$env:USERPROFILE\.local\bin"
+          $env:PATH = "$env:USERPROFILE\.local\bin;$env:PATH"
           Write-Host "Updated PATH: $env:PATH"
           poetry install
 
