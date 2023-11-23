@@ -17,37 +17,51 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Debug PATH before installing Poetry
+        run: Write-Host "Current PATH: $env:PATH"
+
       - name: Cache Poetry cache
         uses: actions/cache@v3
         with:
           path: ~/.cache/pypoetry
           key: poetry-cache-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ env.POETRY_VERSION }}
-      
+
       - name: Cache Packages
         uses: actions/cache@v3
         with:
           path: ~/.local
           key: poetry-${{ runner.os }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('**/poetry.lock') }}-${{ hashFiles('.github/workflows/*.yml') }}
-      
+
       - name: Set up Python ${{ env.PYTHON_VERSION }}
         uses: actions/setup-python@v3
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-      
+
       - name: Install Poetry
         run: |
-            (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
-            [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
+          Write-Host "Current PATH: $env:PATH"
+          (Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
+          [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
+          Write-Host "Updated PATH: $env:PATH"
+
+      - name: Debug PATH after installing Poetry
+        run: Write-Host "Current PATH: $env:PATH"
+
+      - name: Verify Poetry installation
+        run: Test-Path $env:USERPROFILE\.local\bin\poetry
 
       - name: Install Dependencies
         run: |
-            $env:PATH += ";$env:USERPROFILE\.local\bin"
-            poetry install
+          Write-Host "Current PATH: $env:PATH"
+          $env:PATH += ";$env:USERPROFILE\.local\bin"
+          Write-Host "Updated PATH: $env:PATH"
+          poetry install
+
+      - name: Debug PATH after installing Dependencies
+        run: Write-Host "Current PATH: $env:PATH"
 
       - name: Run feature generation script
         env: 
-            HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
-            HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
+          HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
+          HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
         run: Invoke-Expression -Command "make features"
-
-       
