@@ -41,6 +41,9 @@ jobs:
               # Install Poetry
               Invoke-Expression ((Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content)
           }
+          else {
+              Write-Host "Poetry is already installed"
+          }
 
       - name: Add Poetry to PATH
         run: |
