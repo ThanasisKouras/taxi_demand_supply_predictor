@@ -37,9 +37,6 @@ jobs:
       - name: Install Poetry
         run: |
           Invoke-Expression ((Invoke-WebRequest -Uri $env:POETRY_URL -UseBasicParsing).Content)
-
-      - name: Add Poetry to PATH
-        run: |
           [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\AppData\Roaming\Python\Scripts;$env:PATH", [System.EnvironmentVariableTarget]::Process)
 
       - name: Install Dependencies
