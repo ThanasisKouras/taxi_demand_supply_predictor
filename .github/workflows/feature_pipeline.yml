@@ -17,6 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - uses: snok/install-poetry@v1
+        with:
+          version: 1.7.1
+
       - name: Cache Poetry cache
         uses: actions/cache@v3
         with:
@@ -34,16 +38,11 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-
       - name: Install Dependencies
-        run: |
-          $env:PATH += ";$env:USERPROFILE\.poetry\bin"
-          poetry install
+        run: poetry install
 
       - name: Run feature generation script
         env: 
           HOPSWORKS_PROJECT_NAME: ${{ secrets.HOPSWORKS_PROJECT_NAME }}
           HOPSWORKS_API_KEY: ${{ secrets.HOPSWORKS_API_KEY }}
-        run: Invoke-Expression -Command "make features"
+        run: poetry run "make features"
