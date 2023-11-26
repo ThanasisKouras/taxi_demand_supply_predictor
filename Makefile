@@ -11,7 +11,7 @@ init:
 # generates new batch of features and stores them in the feature store
 features:
 	@echo "Running feature pipeline"
-	@poetry run python scripts/feature_pipeline.py
+	@PYTHONPATH=taxi_demand_supply_predictor/src poetry run python taxi_demand_supply_predictor/scripts/feature_pipeline.py
 
 # trains a new model and stores it in the model registry
 training:
@@ -31,8 +31,8 @@ backfill:
 # starts the Streamlit app
 frontend-app:
 	@echo "Starting Streamlit app"
-	@poetry run streamlit run src/frontend.py
+	@poetry run streamlit run taxi_demand_supply_predictor/src/frontend.py
 
 monitoring-app:
 	@echo "Starting monitoring app"
-	@poetry run streamlit run src/frontend_monitoring.py
+	@poetry run streamlit run taxi_demand_supply_predictor/src/frontend_monitoring.py
