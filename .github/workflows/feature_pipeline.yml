@@ -35,9 +35,7 @@ jobs:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install Poetry
-        run: |
-          (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py -
-          [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\AppData\Roaming\Python\Scripts;$env:PATH", [System.EnvironmentVariableTarget]::Process)
+        uses: snok/install-poetry@v1
 
       - name: Install Dependencies
         run: |
