@@ -1,12 +1,12 @@
 .PHONY: init features training inference frontend monitoring
 
 # Set the default target
-.DEFAULT_GOAL := features
+#.DEFAULT_GOAL := features
 
 # downloads Poetry and installs all dependencies from pyproject.toml
-init:
-	(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
-	poetry install
+#init:
+	#(Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | py - --version $env:POETRY_VERSION
+	#poetry install
 
 # generates new batch of features and stores them in the feature store
 features:
