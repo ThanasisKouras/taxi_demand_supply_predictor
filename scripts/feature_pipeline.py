@@ -19,6 +19,7 @@ from src.logger import get_logger
 
 logger = get_logger()
 
+
 def run(date: datetime):
     """_summary_
 
@@ -46,8 +47,8 @@ def run(date: datetime):
 
     # add new column with the timestamp in Unix seconds
     logger.info('Adding column `pickup_ts` with Unix seconds...')
-    ts_data['pickup_hour'] = pd.to_datetime(ts_data['pickup_hour'], utc=True)    
-    ts_data['pickup_ts'] = (ts_data['pickup_hour'].astype(int64) // 10**6).astype('int32')
+    ts_data['pickup_hour'] = pd.to_datetime(ts_data['pickup_hour'], utc=True)
+    ts_data['pickup_ts'] = ts_data['pickup_hour'].astype(int) // 10 ** 6
 
     # get a pointer to the feature group we wanna write to
     logger.info('Getting pointer to the feature group we wanna save data to')
@@ -59,12 +60,12 @@ def run(date: datetime):
     logger.info('Starting job to insert data into feature group...')
     feature_group.insert(ts_data, write_options={"wait_for_job": True})
     # feature_group.insert(ts_data, write_options={"start_offline_backfill": False})
-    
+
     logger.info('Finished job to insert data into feature group')
 
     logger.info('Sleeping for 5 minutes to make sure the inference pipeline has time to run')
     import time
-    time.sleep(5*60)
+    time.sleep(5 * 60)
 
 
 if __name__ == '__main__':
@@ -82,6 +83,6 @@ if __name__ == '__main__':
         current_date = pd.to_datetime(args.datetime)
     else:
         current_date = pd.to_datetime(datetime.utcnow()).floor('H')
-    
+
     logger.info(f'Running feature pipeline for {current_date=}')
     run(current_date)
