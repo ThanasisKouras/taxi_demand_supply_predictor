@@ -67,3 +67,5 @@ N_HYPERPARAMETER_SEARCH_TRIALS = 1
 
 # maximum Mean Absolute Error we allow our production model to have
 MAX_MAE = 7.0
+
+print("PARENT_DIR:", PARENT_DIR)
