@@ -594,6 +594,52 @@ traitlets = ">=4"
 test = ["pytest"]
 
 [[package]]
+name = "confluent-kafka"
+version = "2.1.1"
+description = "Confluent's Python client for Apache Kafka"
+optional = false
+python-versions = "*"
+files = [
+    {file = "confluent-kafka-2.1.1.tar.gz", hash = "sha256:a665e74030a85c5f4203538cfe77e401133a849c4b92052a60225b26052a7e9d"},
+    {file = "confluent_kafka-2.1.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:50b80f7ed6a187f3b3b109ccbf89c4ddf16280c5717d8ee25cd9fac001baae7a"},
+    {file = "confluent_kafka-2.1.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:5de086a2e607f73ecab9d49b8d1c2adc2ed6a328e4087996f16742acc69062b8"},
+    {file = "confluent_kafka-2.1.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:22c88b63dded4c4b71e1e704f04c7209c8e04938b050e399b1883e3411899fe6"},
+    {file = "confluent_kafka-2.1.1-cp310-cp310-manylinux_2_28_aarch64.whl", hash = "sha256:c5ce525dbccabbf8cd0f0df975237e5c823a286b9a853fdeac8141336c29b4ef"},
+    {file = "confluent_kafka-2.1.1-cp310-cp310-win_amd64.whl", hash = "sha256:b517bcd0cbe88abbad60a1a6176f1c8db45d512f109b1a65f0110af4d92aba7c"},
+    {file = "confluent_kafka-2.1.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:f37cdeacb94a1c43b8bc5dddbe44b0bd72b932b906597ad62795cd43ef5aa6b8"},
+    {file = "confluent_kafka-2.1.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:4767e049c7d76e73b3c9fc036fcab24f1cff79b98c55d78b06edb4354b6e59c1"},
+    {file = "confluent_kafka-2.1.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c906bb753381c809dbd8576507ff3410193f8edb28a63caef85ccd0f85996b4d"},
+    {file = "confluent_kafka-2.1.1-cp311-cp311-manylinux_2_28_aarch64.whl", hash = "sha256:7a6eb7aaced82bf0f99702e76829dfe0d318a5c504bd6a6c36a63737e4b6ff36"},
+    {file = "confluent_kafka-2.1.1-cp311-cp311-win_amd64.whl", hash = "sha256:82322e774f307d7fce236a47ced2830a92a43f98194c1d2a277b366587def382"},
+    {file = "confluent_kafka-2.1.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:c378b7d01ea1f4b2fc587ccd6f17059b1afd2d39489de797e0df87ec25ab8a67"},
+    {file = "confluent_kafka-2.1.1-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:d673820d3473406fbd30e0a38d6fbd6b7b5a6a0db36ca2c1b4a7d5b9bc079dd1"},
+    {file = "confluent_kafka-2.1.1-cp36-cp36m-manylinux_2_28_aarch64.whl", hash = "sha256:9069cf9190d121e7a479dde2eb0b89f7f62aeb7ac48d56d28d7d4bc20689c233"},
+    {file = "confluent_kafka-2.1.1-cp36-cp36m-win_amd64.whl", hash = "sha256:326ec2261d994d2cede682d6015d5a10f188d82f0bff9c895e07e59b9e227138"},
+    {file = "confluent_kafka-2.1.1-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:a91c34aa8f3e4d095f5ed9f5cd7edf1217bed9bb69da412efd8541ace3683860"},
+    {file = "confluent_kafka-2.1.1-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dac1be768ece728ca9a15933a2f6c8184a4f0854d81a22302c90a222ec8ca55a"},
+    {file = "confluent_kafka-2.1.1-cp37-cp37m-manylinux_2_28_aarch64.whl", hash = "sha256:369dfd5d8cd84cf1d9355054e0f2c9e9b8cf3877aeab4a85aec8909e775ae4c2"},
+    {file = "confluent_kafka-2.1.1-cp37-cp37m-win_amd64.whl", hash = "sha256:82e286f573904e141f4e56add54f35f6f407713e329a344e0589443591c68481"},
+    {file = "confluent_kafka-2.1.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:51d02f06e67a316d0c4a2cd939bef925ee87488eef78f63e5a054b1b3c5c4431"},
+    {file = "confluent_kafka-2.1.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:09c6c44b484c75e88aad802b0433793969218af925d0b9fed4caae704fcd01d6"},
+    {file = "confluent_kafka-2.1.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:58126c36afea4c0de58342c5da3c4de2ce46b0951f3c8addb50f9ab340bddb39"},
+    {file = "confluent_kafka-2.1.1-cp38-cp38-manylinux_2_28_aarch64.whl", hash = "sha256:cb7b2f61db54f4b16609273f42c19fb05d69f44df5af8eaeff7cc502a9b8ff8f"},
+    {file = "confluent_kafka-2.1.1-cp38-cp38-win_amd64.whl", hash = "sha256:7fbaeaf4d236dd62b2822bdd48f276a8b39adc0987d021874368a69ac3b78fab"},
+    {file = "confluent_kafka-2.1.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:ca305c3256f7943ff0127d5e9797f7e4c314838232749db4ac8920552c38c0dd"},
+    {file = "confluent_kafka-2.1.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:e30ece4692355cc61b0acfe70d319c6ed4e38110e9b16c82619b46b58485f16b"},
+    {file = "confluent_kafka-2.1.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1cb88bd70cfc191cc81f6164f1f898f8bf2ec501ab7abb03629102b62b706c8a"},
+    {file = "confluent_kafka-2.1.1-cp39-cp39-manylinux_2_28_aarch64.whl", hash = "sha256:cb3c81563fcc9071ae799529a7a1a3aa8fb4d94770222aaa811b3e2a54e87f8a"},
+    {file = "confluent_kafka-2.1.1-cp39-cp39-win_amd64.whl", hash = "sha256:bea62d091cc38a305ab877b349931ae69064b9ea50f350d9f91a86d01b10d85c"},
+]
+
+[package.extras]
+avro = ["avro (>=1.11.1,<2)", "fastavro (>=0.23.0,<1.0)", "fastavro (>=1.0)", "requests"]
+dev = ["avro (>=1.11.1,<2)", "fastavro (>=0.23.0,<1.0)", "fastavro (>=1.0)", "flake8", "pytest", "pytest (==4.6.4)", "pytest-timeout", "requests"]
+doc = ["avro (>=1.11.1,<2)", "fastavro (>=0.23.0,<1.0)", "fastavro (>=1.0)", "requests", "sphinx", "sphinx-rtd-theme"]
+json = ["jsonschema", "pyrsistent", "pyrsistent (==0.16.1)", "requests"]
+protobuf = ["protobuf", "requests"]
+schema-registry = ["requests"]
+
+[[package]]
 name = "cryptography"
 version = "41.0.5"
 description = "cryptography is a package which provides cryptographic recipes and primitives to Python developers."
@@ -738,6 +784,46 @@ files = [
 tests = ["asttokens (>=2.1.0)", "coverage", "coverage-enable-subprocess", "ipython", "littleutils", "pytest", "rich"]
 
 [[package]]
+name = "fastavro"
+version = "1.8.2"
+description = "Fast read/write of AVRO files"
+optional = false
+python-versions = ">=3.8"
+files = [
+    {file = "fastavro-1.8.2-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:0e08964b2e9a455d831f2557402a683d4c4d45206f2ab9ade7c69d3dc14e0e58"},
+    {file = "fastavro-1.8.2-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:401a70b1e5c7161420c6019e0c8afa88f7c8a373468591f5ec37639a903c2509"},
+    {file = "fastavro-1.8.2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:eef1ed3eaa4240c05698d02d8d0c010b9a03780eda37b492da6cd4c9d37e04ec"},
+    {file = "fastavro-1.8.2-cp310-cp310-musllinux_1_1_aarch64.whl", hash = "sha256:543185a672ff6306beb329b57a7b8a3a2dd1eb21a5ccc530150623d58d48bb98"},
+    {file = "fastavro-1.8.2-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:ffbf8bae1edb50fe7beeffc3afa8e684686550c2e5d31bf01c25cfa213f581e1"},
+    {file = "fastavro-1.8.2-cp310-cp310-win_amd64.whl", hash = "sha256:bb545eb9d876bc7b785e27e98e7720ada7eee7d7a1729798d2ed51517f13500a"},
+    {file = "fastavro-1.8.2-cp311-cp311-macosx_10_9_universal2.whl", hash = "sha256:2b837d3038c651046252bc92c1b9899bf21c7927a148a1ff89599c36c2a331ca"},
+    {file = "fastavro-1.8.2-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:d3510e96c0a47e4e914bd1a29c954eb662bfa24849ad92e597cb97cc79f21af7"},
+    {file = "fastavro-1.8.2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ccc0e74f2c2ab357f39bb73d67fcdb6dc10e23fdbbd399326139f72ec0fb99a3"},
+    {file = "fastavro-1.8.2-cp311-cp311-musllinux_1_1_aarch64.whl", hash = "sha256:add51c70d0ab1175601c75cd687bbe9d16ae312cd8899b907aafe0d79ee2bc1d"},
+    {file = "fastavro-1.8.2-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:d9e2662f57e6453e9a2c9fb4f54b2a9e62e3e46f5a412ac00558112336d23883"},
+    {file = "fastavro-1.8.2-cp311-cp311-win_amd64.whl", hash = "sha256:fea75cf53a93c56dd56e68abce8d314ef877b27451c870cd7ede7582d34c08a7"},
+    {file = "fastavro-1.8.2-cp38-cp38-macosx_11_0_x86_64.whl", hash = "sha256:f489020bb8664c2737c03457ad5dbd490579ddab6f0a7b5c17fecfe982715a89"},
+    {file = "fastavro-1.8.2-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a547625c138efd5e61300119241041906ee8cb426fc7aa789900f87af7ed330d"},
+    {file = "fastavro-1.8.2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:53beb458f30c9ad4aa7bff4a42243ff990ffb713b6ce0cd9b360cbc3d648fe52"},
+    {file = "fastavro-1.8.2-cp38-cp38-musllinux_1_1_aarch64.whl", hash = "sha256:7b1b2cbd2dd851452306beed0ab9bdaeeab1cc8ad46f84b47cd81eeaff6dd6b8"},
+    {file = "fastavro-1.8.2-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:d29e9baee0b2f37ecd09bde3b487cf900431fd548c85be3e4fe1b9a0b2a917f1"},
+    {file = "fastavro-1.8.2-cp38-cp38-win_amd64.whl", hash = "sha256:66e132c710663230292bc63e2cb79cf95b16ccb94a5fc99bb63694b24e312fc5"},
+    {file = "fastavro-1.8.2-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:38aca63ce604039bcdf2edd14912d00287bdbf8b76f9aa42b28e6ca0bf950092"},
+    {file = "fastavro-1.8.2-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:9787835f6449ee94713e7993a700432fce3763024791ffa8a58dc91ef9d1f950"},
+    {file = "fastavro-1.8.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:536cb448bc83811056be02749fd9df37a69621678f02597d272970a769e9b40c"},
+    {file = "fastavro-1.8.2-cp39-cp39-musllinux_1_1_aarch64.whl", hash = "sha256:e9d5027cf7d9968f8f819958b41bfedb933323ea6d6a0485eefacaa1afd91f54"},
+    {file = "fastavro-1.8.2-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:792adfc0c80c7f1109e0ab4b0decef20691fdf0a45091d397a0563872eb56d42"},
+    {file = "fastavro-1.8.2-cp39-cp39-win_amd64.whl", hash = "sha256:650b22766259f7dd7519dfa4e4658f0e233c319efa130b9cf0c36a500e09cc57"},
+    {file = "fastavro-1.8.2.tar.gz", hash = "sha256:ab9d9226d4b66b6b3d0661a57cd45259b0868fed1c0cd4fac95249b9e0973320"},
+]
+
+[package.extras]
+codecs = ["lz4", "python-snappy", "zstandard"]
+lz4 = ["lz4"]
+snappy = ["python-snappy"]
+zstandard = ["zstandard"]
+
+[[package]]
 name = "fastjsonschema"
 version = "2.19.0"
 description = "Fastest Python implementation of JSON schema"
@@ -860,6 +946,16 @@ files = [
 [package.dependencies]
 orderedmultidict = ">=1.0.1"
 six = ">=1.8.0"
+
+[[package]]
+name = "future"
+version = "0.18.3"
+description = "Clean single-source support for Python 3 and 2"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
+files = [
+    {file = "future-0.18.3.tar.gz", hash = "sha256:34a17436ed1e96697a86f9de3d15a3b0be01d8bc8de9c1dffd59fb8234ed5307"},
+]
 
 [[package]]
 name = "geopandas"
@@ -1041,6 +1137,31 @@ docs = ["Sphinx"]
 test = ["objgraph", "psutil"]
 
 [[package]]
+name = "hopsworks"
+version = "3.4.3"
+description = "HOPSWORKS: An environment independent client to interact with the Hopsworks API"
+optional = false
+python-versions = "*"
+files = [
+    {file = "hopsworks-3.4.3.tar.gz", hash = "sha256:3c0b3a3ad651167967ffd51a72d8daa9836bcfc871b85b5fda8d8feb0efab10f"},
+]
+
+[package.dependencies]
+boto3 = "*"
+furl = "*"
+hsfs = {version = ">=3.4.0,<3.5.0", extras = ["python"]}
+hsml = ">=3.4.0,<3.5.0"
+mock = "*"
+pyhumps = "1.6.1"
+pyjks = "*"
+requests = "*"
+tqdm = "*"
+
+[package.extras]
+dev = ["black", "flake8", "pytest"]
+docs = ["keras_autodoc @ git+https://git@github.com/moritzmeister/keras-autodoc@split-tags-properties", "markdown (==3.3.7)", "markdown-include", "mike (==1.1.2)", "mkdocs (==1.3.0)", "mkdocs-material (==8.2.8)", "pymdown-extensions", "sphinx (==3.5.4)"]
+
+[[package]]
 name = "hsfs"
 version = "3.4.4"
 description = "HSFS: An environment independent client to interact with the Hopsworks Featurestore"
@@ -1053,6 +1174,8 @@ files = [
 [package.dependencies]
 avro = "1.11.0"
 boto3 = "*"
+confluent-kafka = {version = "<=2.1.1", optional = true, markers = "extra == \"python\""}
+fastavro = {version = ">=1.4.11,<=1.8.2", optional = true, markers = "extra == \"python\""}
 fsspec = "*"
 furl = "*"
 great_expectations = "0.14.13"
@@ -1060,11 +1183,14 @@ markupsafe = "<2.1.0"
 mock = "*"
 numpy = "*"
 pandas = "<2.1.0"
+pyarrow = {version = ">=10.0", optional = true, markers = "extra == \"python\""}
+pyhopshive = {version = "*", extras = ["thrift"], optional = true, markers = "extra == \"python\""}
 pyhumps = "1.6.1"
 pyjks = "*"
 PyMySQL = {version = "*", extras = ["rsa"]}
 requests = "*"
 sqlalchemy = "*"
+tqdm = {version = "*", optional = true, markers = "extra == \"python\""}
 tzlocal = "*"
 
 [package.extras]
@@ -1073,6 +1199,31 @@ dev-pandas1 = ["black", "flake8", "moto[s3]", "pandas (<=1.5.3)", "pyspark (==3.
 docs = ["keras_autodoc @ git+https://git@github.com/moritzmeister/keras-autodoc@split-tags-properties", "markdown (==3.3.7)", "markdown-include", "mike (==1.1.2)", "mkdocs (==1.3.0)", "mkdocs-jupyter (==0.21.0)", "mkdocs-macros-plugin (==0.7.0)", "mkdocs-material (==8.2.8)", "mkdocs-minify-plugin (>=0.2.0)", "pymdown-extensions", "sphinx (==3.5.4)"]
 hive = ["confluent-kafka (<=2.1.1)", "fastavro (>=1.4.11,<=1.8.2)", "pyarrow (>=10.0)", "pyhopshive[thrift]"]
 python = ["confluent-kafka (<=2.1.1)", "fastavro (>=1.4.11,<=1.8.2)", "pyarrow (>=10.0)", "pyhopshive[thrift]", "tqdm"]
+
+[[package]]
+name = "hsml"
+version = "3.4.5"
+description = "HSML: An environment independent client to interact with the Hopsworks Model Registry"
+optional = false
+python-versions = "*"
+files = [
+    {file = "hsml-3.4.5.tar.gz", hash = "sha256:5a1111140a33a99cc13a59635911850b636d15f4fc3b354c6395e6916ec3e477"},
+]
+
+[package.dependencies]
+boto3 = "*"
+furl = "*"
+mock = "*"
+numpy = "*"
+pandas = "*"
+pyhumps = "1.6.1"
+pyjks = "*"
+requests = "*"
+tqdm = "*"
+
+[package.extras]
+dev = ["black", "flake8", "pytest"]
+docs = ["keras_autodoc @ git+https://git@github.com/logicalclocks/keras-autodoc@split-tags-properties", "markdown (==3.3.7)", "markdown-include", "mike (==1.1.2)", "mkdocs (==1.3.0)", "mkdocs-material (==8.2.8)", "pymdown-extensions", "sphinx (==3.5.4)"]
 
 [[package]]
 name = "idna"
@@ -2523,6 +2674,28 @@ plugins = ["importlib-metadata"]
 windows-terminal = ["colorama (>=0.4.6)"]
 
 [[package]]
+name = "pyhopshive"
+version = "0.6.4.1.dev0"
+description = "Python interface to Hops Hive"
+optional = false
+python-versions = "*"
+files = [
+    {file = "PyHopsHive-0.6.4.1.dev0.tar.gz", hash = "sha256:fb96625e25b0dd742073ee902dfaeeea5bee2caeb7193d6f3dcef831a20d7a6f"},
+]
+
+[package.dependencies]
+future = "*"
+pyjks = "*"
+python-dateutil = "*"
+thrift = {version = ">=0.10.0", optional = true, markers = "extra == \"thrift\""}
+
+[package.extras]
+hive = ["sasl (>=0.2.1)", "thrift (>=0.10.0)", "thrift_sasl (>=0.1.0)"]
+presto = ["requests (>=1.0.0)"]
+sqlalchemy = ["sqlalchemy (>=0.8.7)"]
+thrift = ["thrift (>=0.10.0)"]
+
+[[package]]
 name = "pyhumps"
 version = "1.6.1"
 description = "🐫  Convert strings (and dictionary keys) between snake case, camel case and pascal case in Python. Inspired by Humps for Node"
@@ -3622,6 +3795,24 @@ files = [
 ]
 
 [[package]]
+name = "thrift"
+version = "0.16.0"
+description = "Python bindings for the Apache Thrift RPC system"
+optional = false
+python-versions = "*"
+files = [
+    {file = "thrift-0.16.0.tar.gz", hash = "sha256:2b5b6488fcded21f9d312aa23c9ff6a0195d0f6ae26ddbd5ad9e3e25dfc14408"},
+]
+
+[package.dependencies]
+six = ">=1.7.2"
+
+[package.extras]
+all = ["tornado (>=4.0)", "twisted"]
+tornado = ["tornado (>=4.0)"]
+twisted = ["twisted"]
+
+[[package]]
 name = "tinycss2"
 version = "1.2.1"
 description = "A tiny CSS parser"
@@ -3725,18 +3916,18 @@ files = [
 
 [[package]]
 name = "traitlets"
-version = "5.13.0"
+version = "5.14.0"
 description = "Traitlets Python configuration system"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "traitlets-5.13.0-py3-none-any.whl", hash = "sha256:baf991e61542da48fe8aef8b779a9ea0aa38d8a54166ee250d5af5ecf4486619"},
-    {file = "traitlets-5.13.0.tar.gz", hash = "sha256:9b232b9430c8f57288c1024b34a8f0251ddcc47268927367a0dd3eeaca40deb5"},
+    {file = "traitlets-5.14.0-py3-none-any.whl", hash = "sha256:f14949d23829023013c47df20b4a76ccd1a85effb786dc060f34de7948361b33"},
+    {file = "traitlets-5.14.0.tar.gz", hash = "sha256:fcdaa8ac49c04dfa0ed3ee3384ef6dfdb5d6f3741502be247279407679296772"},
 ]
 
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
-test = ["argcomplete (>=3.0.3)", "mypy (>=1.6.0)", "pre-commit", "pytest (>=7.0,<7.5)", "pytest-mock", "pytest-mypy-testing"]
+test = ["argcomplete (>=3.0.3)", "mypy (>=1.7.0)", "pre-commit", "pytest (>=7.0,<7.5)", "pytest-mock", "pytest-mypy-testing"]
 
 [[package]]
 name = "twofish"
@@ -3998,4 +4189,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.9.7 || >3.9.7,<3.11"
-content-hash = "d76f0236d9b1524898a8f24176b4b2a5d1d7d1e5e8fc4d51171860eccb6b09a2"
+content-hash = "b0338cff6415d0a78da1ac515ddc92008377da03b9acdeda7e0310a2cd4a1413"
