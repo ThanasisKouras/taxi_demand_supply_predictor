@@ -8,13 +8,13 @@ from argparse import ArgumentParser
 from pdb import set_trace as stop
 
 import pandas as pd
-import numpy as np
+
 from src import config
 from src.data import (
     fetch_ride_events_from_data_warehouse,
     transform_raw_data_into_ts_data,
 )
-from src.feature_store_api import get_feature_group, get_or_create_feature_group
+from src.feature_store_api import  get_or_create_feature_group
 from src.logger import get_logger
 
 logger = get_logger()
@@ -48,7 +48,7 @@ def run(date: datetime):
     # add new column with the timestamp in Unix seconds
     logger.info('Adding column `pickup_ts` with Unix seconds...')
     ts_data['pickup_hour'] = pd.to_datetime(ts_data['pickup_hour'], utc=True)
-    ts_data['pickup_ts'] = (ts_data['pickup_hour'].astype('int64') // 10**6).astype('int32')
+    ts_data['pickup_ts'] = (ts_data['pickup_hour'].astype('int64') // 10 ** 6).astype('int32')
 
     # get a pointer to the feature group we wanna write to
     logger.info('Getting pointer to the feature group we wanna save data to')
