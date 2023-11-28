@@ -28,32 +28,32 @@ def download_one_file_of_raw_data(year: int, month: int) -> Path:
 
 
 def validate_raw_data(
-    rides: pd.DataFrame,
-    year: int,
-    month: int,
+        rides: pd.DataFrame,
+        year: int,
+        month: int,
 ) -> pd.DataFrame:
     """
     Removes rows with pickup_datetimes outside their valid range
     """
     # keep only rides for this month
     this_month_start = f'{year}-{month:02d}-01'
-    next_month_start = f'{year}-{month+1:02d}-01' if month < 12 else f'{year+1}-01-01'
+    next_month_start = f'{year}-{month + 1:02d}-01' if month < 12 else f'{year + 1}-01-01'
     rides = rides[rides.pickup_datetime >= this_month_start]
     rides = rides[rides.pickup_datetime < next_month_start]
-    
+
     return rides
 
 
 def fetch_ride_events_from_data_warehouse(
-    from_date: datetime,
-    to_date: datetime
+        from_date: datetime,
+        to_date: datetime
 ) -> pd.DataFrame:
     """
     This function is used to simulate production data by sampling historical data
     from 52 weeks ago (i.e. 1 year)
     """
-    from_date_ = from_date - timedelta(days=7*52)
-    to_date_ = to_date - timedelta(days=7*52)
+    from_date_ = from_date - timedelta(days=7 * 52)
+    to_date_ = to_date - timedelta(days=7 * 52)
     print(f'Fetching ride events from {from_date} to {to_date}')
 
     if (from_date_.year == to_date_.year) and (from_date_.month == to_date_.month):
@@ -72,7 +72,7 @@ def fetch_ride_events_from_data_warehouse(
 
     # shift the pickup_datetime back 1 year ahead, to simulate production data
     # using its 7*52-days-ago value
-    rides['pickup_datetime'] += timedelta(days=7*52)
+    rides['pickup_datetime'] += timedelta(days=7 * 52)
 
     rides.sort_values(by=['pickup_location_id', 'pickup_datetime'], inplace=True)
 
@@ -80,8 +80,8 @@ def fetch_ride_events_from_data_warehouse(
 
 
 def load_raw_data(
-    year: int,
-    months: Optional[List[int]] = None
+        year: int,
+        months: Optional[List[int]] = None
 ) -> pd.DataFrame:
     """
     Loads raw data from local storage or downloads it from the NYC website, and
@@ -95,9 +95,9 @@ def load_raw_data(
         pd.DataFrame: DataFrame with the following columns:
             - pickup_datetime: datetime of the pickup
             - pickup_location_id: ID of the pickup location
-    """  
+    """
     rides = pd.DataFrame()
-    
+
     if months is None:
         # download data for the entire year (all months)
         months = list(range(1, 13))
@@ -106,7 +106,7 @@ def load_raw_data(
         months = [months]
 
     for month in months:
-        
+
         local_file = RAW_DATA_DIR / f'rides_{year}-{month:02d}.parquet'
         if not local_file.exists():
             try:
@@ -117,9 +117,9 @@ def load_raw_data(
                 print(f'{year}-{month:02d} file is not available')
                 continue
         else:
-            print(f'File {year}-{month:02d} was already in local storage') 
+            print(f'File {year}-{month:02d} was already in local storage')
 
-        # load the file into Pandas
+            # load the file into Pandas
         rides_one_month = pd.read_parquet(local_file)
 
         # rename columns
@@ -161,7 +161,7 @@ def add_missing_slots(ts_data: pd.DataFrame) -> pd.DataFrame:
 
         # keep only rides for this 'location_id'
         ts_data_i = ts_data.loc[ts_data.pickup_location_id == location_id, ['pickup_hour', 'rides']]
-        
+
         if ts_data_i.empty:
             # add a dummy entry with a 0
             ts_data_i = pd.DataFrame.from_dict([
@@ -173,20 +173,20 @@ def add_missing_slots(ts_data: pd.DataFrame) -> pd.DataFrame:
         ts_data_i.set_index('pickup_hour', inplace=True)
         ts_data_i.index = pd.DatetimeIndex(ts_data_i.index)
         ts_data_i = ts_data_i.reindex(full_range, fill_value=0)
-        
+
         # add back `location_id` columns
         ts_data_i['pickup_location_id'] = location_id
 
         output = pd.concat([output, ts_data_i])
-    
+
     # move the pickup_hour from the index to a dataframe column
     output = output.reset_index().rename(columns={'index': 'pickup_hour'})
-    
+
     return output
 
 
 def transform_raw_data_into_ts_data(
-    rides: pd.DataFrame
+        rides: pd.DataFrame
 ) -> pd.DataFrame:
     """"""
     # sum rides per location and pickup_hour
@@ -201,9 +201,9 @@ def transform_raw_data_into_ts_data(
 
 
 def transform_ts_data_into_features_and_target(
-    ts_data: pd.DataFrame,
-    input_seq_len: int,
-    step_size: int
+        ts_data: pd.DataFrame,
+        input_seq_len: int,
+        step_size: int
 ) -> Tuple[pd.DataFrame, pd.Series]:
     """
     Slices and transposes data from time-series format into a (features, target)
@@ -214,12 +214,12 @@ def transform_ts_data_into_features_and_target(
     location_ids = ts_data['pickup_location_id'].unique()
     features = pd.DataFrame()
     targets = pd.DataFrame()
-    
+
     for location_id in tqdm(location_ids):
-        
+
         # keep only ts data for this `location_id`
         ts_data_one_location = ts_data.loc[
-            ts_data.pickup_location_id == location_id, 
+            ts_data.pickup_location_id == location_id,
             ['pickup_hour', 'rides']
         ].sort_values(by=['pickup_hour'])
 
@@ -243,7 +243,7 @@ def transform_ts_data_into_features_and_target(
         # numpy -> pandas
         features_one_location = pd.DataFrame(
             x,
-            columns=[f'rides_previous_{i+1}_hour' for i in reversed(range(input_seq_len))]
+            columns=[f'rides_previous_{i + 1}_hour' for i in reversed(range(input_seq_len))]
         )
         features_one_location['pickup_hour'] = pickup_hours
         features_one_location['pickup_location_id'] = location_id
@@ -262,23 +262,22 @@ def transform_ts_data_into_features_and_target(
 
 
 def get_cutoff_indices_features_and_target(
-    data: pd.DataFrame,
-    input_seq_len: int,
-    step_size: int
-    ) -> list:
+        data: pd.DataFrame,
+        input_seq_len: int,
+        step_size: int
+) -> list:
+    stop_position = len(data) - 1
 
-        stop_position = len(data) - 1
-        
-        # Start the first sub-sequence at index position 0
-        subseq_first_idx = 0
-        subseq_mid_idx = input_seq_len
-        subseq_last_idx = input_seq_len + 1
-        indices = []
-        
-        while subseq_last_idx <= stop_position:
-            indices.append((subseq_first_idx, subseq_mid_idx, subseq_last_idx))
-            subseq_first_idx += step_size
-            subseq_mid_idx += step_size
-            subseq_last_idx += step_size
+    # Start the first sub-sequence at index position 0
+    subseq_first_idx = 0
+    subseq_mid_idx = input_seq_len
+    subseq_last_idx = input_seq_len + 1
+    indices = []
 
-        return indices
+    while subseq_last_idx <= stop_position:
+        indices.append((subseq_first_idx, subseq_mid_idx, subseq_last_idx))
+        subseq_first_idx += step_size
+        subseq_mid_idx += step_size
+        subseq_last_idx += step_size
+
+    return indices
