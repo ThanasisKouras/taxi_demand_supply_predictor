@@ -9,6 +9,7 @@ from src.logger import get_logger
 
 logger = get_logger()
 
+
 @dataclass
 class FeatureGroupConfig:
     name: str
@@ -18,11 +19,13 @@ class FeatureGroupConfig:
     event_time: str
     online_enabled: Optional[bool] = False
 
+
 @dataclass
 class FeatureViewConfig:
     name: str
     version: int
     feature_group: FeatureGroupConfig
+
 
 def get_feature_store() -> hsfs.feature_store.FeatureStore:
     """Connects to Hopsworks and returns a pointer to the feature store
@@ -36,11 +39,12 @@ def get_feature_store() -> hsfs.feature_store.FeatureStore:
     )
     return project.get_feature_store()
 
+
 # TODO: remove this function, and use get_or_create_feature_group instead
 def get_feature_group(
-    name: str,
-    version: Optional[int] = 1
-    ) -> hsfs.feature_group.FeatureGroup:
+        name: str,
+        version: Optional[int] = 1
+) -> hsfs.feature_group.FeatureGroup:
     """Connects to the feature store and returns a pointer to the given
     feature group `name`
 
@@ -56,8 +60,9 @@ def get_feature_group(
         version=version,
     )
 
+
 def get_or_create_feature_group(
-    feature_group_metadata: FeatureGroupConfig
+        feature_group_metadata: FeatureGroupConfig
 ) -> hsfs.feature_group.FeatureGroup:
     """Connects to the feature store and returns a pointer to the given
     feature group `name`
@@ -78,8 +83,9 @@ def get_or_create_feature_group(
         online_enabled=feature_group_metadata.online_enabled
     )
 
+
 def get_or_create_feature_view(
-    feature_view_metadata: FeatureViewConfig
+        feature_view_metadata: FeatureViewConfig
 ) -> hsfs.feature_view.FeatureView:
     """"""
 
@@ -102,7 +108,7 @@ def get_or_create_feature_view(
         )
     except:
         logger.info("Feature view already exists, skipping creation.")
-    
+
     # get feature view
     feature_store = get_feature_store()
     feature_view = feature_store.get_feature_view(
