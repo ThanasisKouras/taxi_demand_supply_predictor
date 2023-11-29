@@ -9,15 +9,16 @@ import src.config as config
 from src.feature_store_api import get_feature_store, get_or_create_feature_view
 from src.config import FEATURE_VIEW_METADATA
 
-def get_hopsworks_project() -> hopsworks.project.Project:
 
+def get_hopsworks_project() -> hopsworks.project.Project:
     return hopsworks.login(
         project=config.HOPSWORKS_PROJECT_NAME,
         api_key_value=config.HOPSWORKS_API_KEY
     )
 
+
 # def get_feature_store() -> FeatureStore:
-    
+
 #     project = get_hopsworks_project()
 #     return project.get_feature_store()
 
@@ -30,12 +31,12 @@ def get_model_predictions(model, features: pd.DataFrame) -> pd.DataFrame:
     results = pd.DataFrame()
     results['pickup_location_id'] = features['pickup_location_id'].values
     results['predicted_demand'] = predictions.round(0)
-    
+
     return results
 
 
 def load_batch_of_features_from_store(
-    current_date: pd.Timestamp,    
+        current_date: pd.Timestamp,
 ) -> pd.DataFrame:
     """Fetches the batch of features used by the ML system at `current_date`
 
@@ -63,7 +64,7 @@ def load_batch_of_features_from_store(
         start_time=fetch_data_from - timedelta(days=1),
         end_time=fetch_data_to + timedelta(days=1)
     )
-    
+
     # filter data to the time period we are interested in
     pickup_ts_from = int(fetch_data_from.timestamp() * 1000)
     pickup_ts_to = int(fetch_data_to.timestamp() * 1000)
@@ -87,17 +88,16 @@ def load_batch_of_features_from_store(
     # numpy arrays to Pandas dataframes
     features = pd.DataFrame(
         x,
-        columns=[f'rides_previous_{i+1}_hour' for i in reversed(range(n_features))]
+        columns=[f'rides_previous_{i + 1}_hour' for i in reversed(range(n_features))]
     )
     features['pickup_hour'] = current_date
     features['pickup_location_id'] = location_ids
     features.sort_values(by=['pickup_location_id'], inplace=True)
 
     return features
-    
+
 
 def load_model_from_registry():
-    
     import joblib
     from pathlib import Path
 
@@ -107,17 +107,18 @@ def load_model_from_registry():
     model = model_registry.get_model(
         name=config.MODEL_NAME,
         version=config.MODEL_VERSION,
-    )  
-    
+    )
+
     model_dir = model.download()
-    model = joblib.load(Path(model_dir)  / 'model.pkl')
-       
+    model = joblib.load(Path(model_dir) / 'model.pkl')
+
     return model
 
+
 def load_predictions_from_store(
-    from_pickup_hour: datetime,
-    to_pickup_hour: datetime
-    ) -> pd.DataFrame:
+        from_pickup_hour: datetime,
+        to_pickup_hour: datetime
+) -> pd.DataFrame:
     """
     Connects to the feature store and retrieves model predictions for all
     `pickup_location_id`s and for the time period from `from_pickup_hour`
@@ -148,7 +149,7 @@ def load_predictions_from_store(
         start_time=from_pickup_hour - timedelta(days=1),
         end_time=to_pickup_hour + timedelta(days=1)
     )
-    
+
     # make sure datetimes are UTC aware
     predictions['pickup_hour'] = pd.to_datetime(predictions['pickup_hour'], utc=True)
     from_pickup_hour = pd.to_datetime(from_pickup_hour, utc=True)
