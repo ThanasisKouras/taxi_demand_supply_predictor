@@ -3,7 +3,6 @@ name: training-pipeline
 on:
     schedule:
     - cron: '0 0 * * 0'
-  
     workflow_dispatch:
 
 env:
@@ -41,12 +40,11 @@ jobs:
         
         - name: Install Poetry
           run: |
-            $poetryScript = (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content
-            $poetryScript | py - --version $env:POETRY_VERSION
-            [System.Environment]::SetEnvironmentVariable("PATH", "$env:USERPROFILE\.local\bin;$($env:PATH)", [System.EnvironmentVariableTarget]::Process)
+            python -m pip install --upgrade pip
+            pip install poetry 
         
         - name: Install Dependencies
-          run: poetry install
+          run: poetry install --no-root
             
         - name: Run training script
           env:
