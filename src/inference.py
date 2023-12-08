@@ -49,7 +49,7 @@ def load_batch_of_features_from_store(
             - `pickup_hour`
             - `rides`
             - `pickup_location_id`
-            - `pickup_ts`
+            - `pickpu_ts`
     """
     n_features = config.N_FEATURES
 
