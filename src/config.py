@@ -16,10 +16,10 @@ except:
 
 # TODO: remove FEATURE_GROUP_NAME and FEATURE_GROUP_VERSION, and use FEATURE_GROUP_METADATA instead
 FEATURE_GROUP_NAME = 'time_series_hourly_feature_group'
-FEATURE_GROUP_VERSION = 3
+FEATURE_GROUP_VERSION = 1
 FEATURE_GROUP_METADATA = FeatureGroupConfig(
     name='time_series_hourly_feature_group',
-    version=3,
+    version=1,
     description='Feature group with hourly time-series data of historical taxi rides',
     primary_key=['pickup_location_id', 'pickup_ts'],
     event_time='pickup_ts',
@@ -28,10 +28,10 @@ FEATURE_GROUP_METADATA = FeatureGroupConfig(
 
 # TODO: remove FEATURE_VIEW_NAME and FEATURE_VIEW_VERSION, and use FEATURE_VIEW_METADATA instead
 FEATURE_VIEW_NAME = 'time_series_hourly_feature_view'
-FEATURE_VIEW_VERSION = 3
+FEATURE_VIEW_VERSION = 1
 FEATURE_VIEW_METADATA = FeatureViewConfig(
     name='time_series_hourly_feature_view',
-    version=3,
+    version=1,
     feature_group=FEATURE_GROUP_METADATA,
 )
 
@@ -62,7 +62,7 @@ MONITORING_FV_VERSION = 3
 # number of historical values our model needs to generate predictions
 N_FEATURES = 24 * 28
 
-# number of iterations we want Optuna to pefrom to find the best hyperparameters
+# number of iterations we want Optuna to perform to find the best hyperparameters
 N_HYPERPARAMETER_SEARCH_TRIALS = 1
 
 # maximum Mean Absolute Error we allow our production model to have
