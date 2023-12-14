@@ -43,7 +43,7 @@ def load_batch_of_features_from_store(
             - `pickup_hour`
             - `rides`
             - `pickup_location_id`
-            - `pickup_ts`
+            - `pickpu_ts`
     """
     n_features = config.N_FEATURES
 
@@ -65,7 +65,7 @@ def load_batch_of_features_from_store(
     ts_data = ts_data[ts_data.pickup_ts.between(pickup_ts_from, pickup_ts_to)]
 
     # sort data by location and time
-    ts_data.sort_values(by=['pickup_location_id', 'pickup_ts'], inplace=True)
+    ts_data.sort_values(by=['pickup_location_id', 'pickup_hour'], inplace=True)
 
     # validate we are not missing data in the feature store
     location_ids = ts_data['pickup_location_id'].unique()
