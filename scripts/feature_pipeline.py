@@ -1,8 +1,3 @@
-import sys
-import os
-
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from datetime import datetime, timedelta
 from argparse import ArgumentParser
 from pdb import set_trace as stop
@@ -14,7 +9,7 @@ from src.data import (
     fetch_ride_events_from_data_warehouse,
     transform_raw_data_into_ts_data,
 )
-from src.feature_store_api import  get_or_create_feature_group
+from src.feature_store_api import get_feature_group, get_or_create_feature_group
 from src.logger import get_logger
 
 logger = get_logger()
@@ -48,7 +43,7 @@ def run(date: datetime):
     # add new column with the timestamp in Unix seconds
     logger.info('Adding column `pickup_ts` with Unix seconds...')
     ts_data['pickup_hour'] = pd.to_datetime(ts_data['pickup_hour'], utc=True)
-    ts_data['pickup_ts'] = (ts_data['pickup_hour'].astype('int64') // 10 ** 6).astype('int32')
+    ts_data['pickup_ts'] = ts_data['pickup_hour'].astype(int) // 10 ** 6
 
     # get a pointer to the feature group we wanna write to
     logger.info('Getting pointer to the feature group we wanna save data to')
@@ -58,14 +53,14 @@ def run(date: datetime):
     # we wait, to make sure the job is finished before we exit the script, and
     # the inference pipeline can start using the new data
     logger.info('Starting job to insert data into feature group...')
-    feature_group.insert(ts_data, write_options={"wait_for_job": True})
+    feature_group.insert(ts_data, write_options={"wait_for_job": False})
     # feature_group.insert(ts_data, write_options={"start_offline_backfill": False})
 
     logger.info('Finished job to insert data into feature group')
 
-    logger.info('Sleeping for 5 minutes to make sure the inference pipeline has time to run')
-    import time
-    time.sleep(5 * 60)
+    # logger.info('Sleeping for 5 minutes to make sure the inference pipeline has time to run')
+    # import time
+    # time.sleep(5*60)
 
 
 if __name__ == '__main__':
